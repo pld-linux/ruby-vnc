@@ -1,16 +1,6 @@
---- vnc-1.0.1/lib/net/vnc.rb	2011-09-16 02:52:21.000000000 +0300
+--- ruby-vnc-1.1.0/lib/net/vnc.rb~	2013-05-13 16:39:11.000000000 +0300
 +++ veewee-0.3.7/lib/net/vnc.rb	2013-01-10 12:02:14.000000000 +0200
-@@ -47,31 +47,33 @@
- 
- 			def refresh
- 				packet = 0.chr * 6
--				packet[0] = 5
--				packet[1] = button
-+				packet[0] = 5.chr
-+				packet[1] = button.chr
- 				packet[2, 2] = [x].pack 'n'
- 				packet[4, 2] = [y].pack 'n'
- 				@vnc.socket.write packet
+@@ -55,23 +55,25 @@
  			end
  		end
  
@@ -22,15 +12,15 @@
  			:shared => false,
  			:wait => 0.1
 -		}
-+    } if DEFAULT_OPTIONS.nil?
++		} if DEFAULT_OPTIONS.nil?
  
-+    if KEY_MAP.nil?
++	if KEY_MAP.nil?
  		keys_file = File.dirname(__FILE__) + '/../../data/keys.yaml'
  		KEY_MAP = YAML.load_file(keys_file).inject({}) { |h, (k, v)| h.update k.to_sym => v }
  		def KEY_MAP.[] key
  			super or raise ArgumentError.new('Invalid key name - %s' % key)
  		end
-+    end
++	end
  
  		attr_reader :server, :display, :options, :socket, :pointer
  
@@ -40,21 +30,7 @@
  			if display =~ /^(.*)(:\d+)$/
  				@server, display = $1, $2
  			end
-@@ -147,17 +149,50 @@
- 		# this types +text+ on the server
- 		def type text, options={}
- 			packet = 0.chr * 8
--			packet[0] = 4
-+			packet[0] = 4.chr
- 			text.split(//).each do |char|
- 				packet[7] = char[0]
--				packet[1] = 1
-+				packet[1] = 1.chr
- 				socket.write packet
--				packet[1] = 0
-+				packet[1] = 0.chr
- 				socket.write packet
- 			end
+@@ -158,6 +160,39 @@
  			wait options
  		end
  
@@ -94,31 +70,6 @@
  		# this takes an array of keys, and successively holds each down then lifts them up in
  		# reverse order.
  		# FIXME: should wait. can't recurse in that case.
-@@ -191,20 +226,20 @@
- 
- 		def key_down which, options={}
- 			packet = 0.chr * 8
--			packet[0] = 4
-+			packet[0] = 4.chr
- 			key_code = get_key_code which
- 			packet[4, 4] = [key_code].pack('N')
--			packet[1] = 1
-+			packet[1] = 1.chr
- 			socket.write packet
- 			wait options
- 		end
- 
- 		def key_up which, options={}
- 			packet = 0.chr * 8
--			packet[0] = 4
-+			packet[0] = 4.chr
- 			key_code = get_key_code which
- 			packet[4, 4] = [key_code].pack('N')
--			packet[1] = 0
-+			packet[1] = 0.chr
- 			socket.write packet
- 			wait options
- 		end
 @@ -217,7 +252,7 @@
  
  		BUTTON_MAP = {

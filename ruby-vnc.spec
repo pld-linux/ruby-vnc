@@ -1,12 +1,12 @@
 %define	gem_name	ruby-vnc
 Summary:	Ruby VNC library
 Name:		ruby-vnc
-Version:	1.0.1
+Version:	1.1.0
 Release:	1
 License:	MIT
 Group:		Development/Languages
 Source0:	https://ruby-vnc.googlecode.com/files/%{name}-%{version}.tgz
-# Source0-md5:	91fd3ee9d6528bb777dcd11db46795b2
+# Source0-md5:	f8219f408880a9df41683935bcfd2d05
 Patch0:		veewee.patch
 URL:		http://code.google.com/p/ruby-vnc
 BuildRequires:	rpm-rubyprov
