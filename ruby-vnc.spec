@@ -7,6 +7,7 @@ License:	MIT
 Group:		Development/Languages
 Source0:	https://ruby-vnc.googlecode.com/files/%{name}-%{version}.tgz
 # Source0-md5:	91fd3ee9d6528bb777dcd11db46795b2
+Patch0:		veewee.patch
 URL:		http://code.google.com/p/ruby-vnc
 BuildRequires:	rpm-rubyprov
 BuildRequires:	rpmbuild(macros) >= 1.656
@@ -20,6 +21,8 @@ servers.
 
 %prep
 %setup -q -n %{gem_name}-%{version}
+%undos -f rb
+%patch0 -p1
 
 %install
 rm -rf $RPM_BUILD_ROOT
