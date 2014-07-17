@@ -2,7 +2,7 @@
 Summary:	Ruby VNC library
 Name:		ruby-vnc
 Version:	1.1.0
-Release:	1
+Release:	2
 License:	MIT
 Group:		Development/Languages
 Source0:	https://ruby-vnc.googlecode.com/files/%{name}-%{version}.tgz
